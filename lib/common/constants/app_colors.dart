@@ -16,10 +16,17 @@ class AppColors {
   static const Color grey = Color(0xFF444444);
   static const Color black = Color(0xFF000000);
   static const Color darkBlue = Color(0xFF00008B);
+  static const Color orange = Color(0xFFFF9800);
+
+  static const List<Color> orangeGradient = [
+    Color(0xFFFFB74D),
+    Color(0xFFFF9800),
+    Color(0xFFF57C00),
+  ];
 
   static const List<Color> buttomGradient = [
-    Color(0xFFFFFFFF),
-    Color(0xFFFFFFFF),
+    Color(0xFFFDFDFD),
+    Color(0xFFFDFDFC),
   ];
 
   static const List<Color> greyGradient = [

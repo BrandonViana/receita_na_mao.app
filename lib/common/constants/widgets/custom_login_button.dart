@@ -21,11 +21,11 @@ class CustomLoginButton extends StatelessWidget {
         children: [
           Text(
             'Você já possui uma conta? ',
-            style: AppTextStyles.simpleText.copyWith(color: AppColors.white),
+            style: AppTextStyles.textAll.copyWith(color: AppColors.white),
           ),
           Text(
             '(Log in)',
-            style: AppTextStyles.simpleText.copyWith(
+            style: AppTextStyles.textAll.copyWith(
               color: AppColors.white,
               fontSize: 15,
             ),

@@ -56,7 +56,7 @@ class _SplashPageState extends State<SplashPage>
           gradient: LinearGradient(
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
-            colors: AppColors.babyblueGradient,
+            colors: AppColors.orangeGradient,
             stops: const [0.0, 0.5, 1.0],
           ),
         ),

@@ -21,8 +21,15 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        alignment: Alignment.topCenter,
-        decoration: const BoxDecoration(color: AppColors.white),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: AppColors.orangeGradient,
+            stops: const [0.0, 0.5, 1.0],
+          ),
+        ),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
@@ -51,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: Text(
                           'Criar Conta',
                           style: AppTextStyles.simpleText.copyWith(
-                            color: AppColors.blueBorder,
+                            color: AppColors.white,
                             fontSize: 35,
                           ),
                         ),
@@ -90,7 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               _agreeToPrivacyPolicy = value ?? false;
                             });
                           },
-                          activeColor: AppColors.blueBorder,
+                          activeColor: AppColors.orange,
                         ),
                         Expanded(
                           child: Text(

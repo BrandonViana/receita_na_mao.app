@@ -16,7 +16,7 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         alignment: Alignment.topCenter,
-        decoration: const BoxDecoration(color: AppColors.white),
+        decoration: const BoxDecoration(color: AppColors.orange),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
@@ -42,7 +42,7 @@ class LoginPage extends StatelessWidget {
                     Center(
                       child: Text(
                         'Login',
-                        style: AppTextStyles.simpleText.copyWith(
+                        style: AppTextStyles.textAll.copyWith(
                           color: AppColors.blueBorder,
                           fontSize: 35,
                         ),
@@ -62,8 +62,8 @@ class LoginPage extends StatelessWidget {
                       children: [
                         TextSpan(
                           text: 'Esqueceu a senha?',
-                          style: AppTextStyles.simpleText.copyWith(
-                            color: AppColors.black,
+                          style: AppTextStyles.textAll.copyWith(
+                            color: AppColors.white,
                           ),
                           recognizer:
                               TapGestureRecognizer()
@@ -88,14 +88,14 @@ class LoginPage extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: 'Não tem uma conta? ',
-                        style: AppTextStyles.simpleText.copyWith(
-                          color: AppColors.black,
+                        style: AppTextStyles.textAll.copyWith(
+                          color: AppColors.white,
                         ),
                       ),
                       TextSpan(
                         text: 'Registrar',
-                        style: AppTextStyles.simpleText.copyWith(
-                          color: AppColors.black,
+                        style: AppTextStyles.textAll.copyWith(
+                          color: AppColors.white,
                         ),
                         recognizer:
                             TapGestureRecognizer()

@@ -12,13 +12,7 @@ class OnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-            colors: AppColors.babyblueGradient,
-          ),
-        ),
+        color: const Color(0xFFFF9800),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -26,31 +20,48 @@ class OnboardingPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(height: 15.0),
+                const SizedBox(height: 40.0),
                 Text(
-                  "Agenda Pet",
-                  textAlign: TextAlign.center,
+                  "Receita na Mão",
                   style: AppTextStyles.sloganText.copyWith(
                     color: AppColors.white,
                     fontSize: 20,
                   ),
                 ),
-                const SizedBox(height: 20.0),
+                const SizedBox(height: 5.0),
                 Expanded(
                   child: Center(
-                    child: Image.asset(
-                      "assets/Image/golden.webp"
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          width: 500,
+                          height: 500,
+                          decoration: BoxDecoration(
+                            color: AppColors.white,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        ClipOval(
+                          child: Image.asset(
+                            "assets/Image/onboarding_picture.png",
+                            width: 500,
+                            height: 500,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                Text(
-                  "Agende, Cadastre, Cuide!",
-                  textAlign: TextAlign.center,
-                  style: AppTextStyles.simpleText.copyWith(
-                    color: AppColors.white,
-                    fontSize: 35,
-                  ),
-                ),
+                //Text(
+                //"Ta com fome e não sabe o que fazer?",
+                //textAlign: TextAlign.center,
+                //style: AppTextStyles.sloganText.copyWith(
+                //color: AppColors.white,
+                ///fontSize: 30,
+                //),
+                //),
                 Padding(
                   padding: EdgeInsets.all(16.0),
                   child: PrimaryButton(
@@ -63,9 +74,9 @@ class OnboardingPage extends StatelessWidget {
                     },
                   ),
                 ),
-                const SizedBox(height: 10.0),
+                const SizedBox(height: 60.0),
                 CustomLoginButton(),
-                const SizedBox(height: 40.0),
+                const SizedBox(height: 10.0),
               ],
             ),
           ),

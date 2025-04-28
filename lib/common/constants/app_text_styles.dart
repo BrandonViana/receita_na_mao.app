@@ -43,6 +43,16 @@ class AppTextStyles {
     fontSize: 15.0,
     fontWeight: FontWeight.w300,
   );
+
+  static const buttomText = TextStyle(
+    fontFamily: 'Oswald',
+    fontSize: 15.0,
+    fontWeight: FontWeight.w800,
+  );
+
+  static const textAll = TextStyle(
+    fontFamily: 'OpenSans',
+    fontSize: 15.0,
+    fontWeight: FontWeight.w800,
+  );
 }
-
-
