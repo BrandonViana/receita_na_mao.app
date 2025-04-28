@@ -25,7 +25,7 @@ class SecondButton extends StatelessWidget {
             end: Alignment.bottomCenter,
             colors:
                 onPressed != null
-                    ? AppColors.orangeGradient
+                    ? AppColors.buttomGradient
                     : AppColors.greyGradient,
           ),
           borderRadius: _borderRadius,
@@ -36,7 +36,7 @@ class SecondButton extends StatelessWidget {
           child: Align(
             child: Text(
               text,
-              style: AppTextStyles.textAll.copyWith(color: AppColors.white),
+              style: AppTextStyles.textAll.copyWith(color: AppColors.black),
             ),
           ),
         ),

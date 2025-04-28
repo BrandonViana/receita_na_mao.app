@@ -19,9 +19,11 @@ class AppColors {
   static const Color orange = Color(0xFFFF9800);
 
   static const List<Color> orangeGradient = [
-    Color(0xFFFFB74D),
-    Color(0xFFFF9800),
-    Color(0xFFF57C00),
+    Color(
+      0xFFFFA726,
+    ), // um laranja mais equilibrado, menos claro que o 0xFFFFB74D
+    Color(0xFFFF9800), // mantém o original do meio
+    Color(0xFFFB8C00), // um tom levemente mais escuro, mas ainda similar
   ];
 
   static const List<Color> buttomGradient = [

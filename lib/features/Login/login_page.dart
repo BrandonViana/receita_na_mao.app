@@ -15,8 +15,15 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        alignment: Alignment.topCenter,
-        decoration: const BoxDecoration(color: AppColors.orange),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: AppColors.orangeGradient,
+            stops: const [0.0, 0.5, 1.0],
+          ),
+        ),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
@@ -43,7 +50,7 @@ class LoginPage extends StatelessWidget {
                       child: Text(
                         'Login',
                         style: AppTextStyles.textAll.copyWith(
-                          color: AppColors.blueBorder,
+                          color: AppColors.white,
                           fontSize: 35,
                         ),
                       ),

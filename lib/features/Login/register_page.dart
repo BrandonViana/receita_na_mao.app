@@ -15,7 +15,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  bool _agreeToPrivacyPolicy = false;
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -86,36 +86,39 @@ class _RegisterPageState extends State<RegisterPage> {
                   const SizedBox(height: 20),
                   PasswordField(label: 'Senha'),
                   const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Row(
-                      children: [
-                        Checkbox(
-                          value: _agreeToPrivacyPolicy,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              _agreeToPrivacyPolicy = value ?? false;
-                            });
-                          },
-                          activeColor: AppColors.orange,
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: isChecked,
+                        onChanged: (bool? newValue) {
+                          setState(() {
+                            isChecked = newValue!;
+                          });
+                        },
+                        fillColor: WidgetStateProperty.resolveWith<Color>(
+                          (Set<WidgetState> states) => AppColors.orange,
                         ),
-                        Expanded(
-                          child: Text(
-                            'Concorda com a Política de Privacidade?',
-                            style: AppTextStyles.sloganText.copyWith(
-                              fontSize: 14,
-                            ),
+                        checkColor: AppColors.white,
+                        side: BorderSide(color: AppColors.white, width: 2),
+                      ),
+                      Expanded(
+                        child: Text(
+                          'Concordo com a Política de Privacidade',
+                          style: AppTextStyles.simpleText.copyWith(
+                            fontSize: 14,
+                            color: AppColors.white,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: SecondButton(
                       text: "Registrar",
                       onPressed: () {
-                        if (_agreeToPrivacyPolicy) {
+                        if (isChecked) {
+                          // Verifica se o checkbox está marcado
                           Navigator.push(
                             context,
                             MaterialPageRoute(

@@ -8,7 +8,7 @@ class CustomBorder {
     TextStyle? floatingLabelStyle,
     Color? borderColor,
   }) {
-    final color = borderColor ?? AppColors.blueBorder;
+    final color = borderColor ?? AppColors.orange;
     return InputDecoration(
       labelText: label,
       labelStyle: labelStyle,
