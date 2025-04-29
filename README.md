@@ -24,6 +24,9 @@ Just list the items available in your fridge or pantry, and the app will suggest
 ## Project Status: In development
 New features and improvements are being added, including external API integration and enhanced ingredient search.
 
+# Login Page
+Link: https://marvelapp.com/prototype/80afh3d
+
 
 ## How to Run the Project
 
