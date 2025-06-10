@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:receitanamao/common/constants/app_colors.dart';
 import 'package:receitanamao/common/constants/widgets/third_buttom.dart';
+import 'package:receitanamao/features/Login/login_page.dart';
 import 'package:receitanamao/features/pages/ingredients_page.dart';
 import 'package:receitanamao/features/pages/support_page.dart';
 
@@ -75,6 +76,16 @@ class _FirstPageState extends State<FirstPage> {
                   );
                 },
               ),
+              ListTile(
+                leading: const Icon(Icons.exit_to_app, color: AppColors.orange),
+                title: const Text("Sair"),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                },
+              )
             ],
           ),
         ),

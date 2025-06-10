@@ -4,6 +4,7 @@ import 'package:receitanamao/common/constants/app_text_styles.dart';
 import 'package:receitanamao/common/constants/widgets/custom_border.dart';
 import 'package:receitanamao/common/constants/widgets/password_field.dart';
 import 'package:receitanamao/common/constants/widgets/second_button.dart';
+import 'package:receitanamao/features/Login/login_page.dart';
 import 'package:receitanamao/features/servicos/authentication_service.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -18,9 +19,20 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController(); // NOVO
   bool isChecked = false;
 
   final AuthenticationService _autenservi = AuthenticationService();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _nameController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose(); // NOVO
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +108,9 @@ class _RegisterPageState extends State<RegisterPage> {
                         TextFormField(
                           controller: _emailController,
                           decoration: CustomBorder.build('Email'),
-                          keyboardType: TextInputType.name,
+                          keyboardType:
+                              TextInputType
+                                  .emailAddress, // Pequena correção aqui
                           style: TextStyle(color: AppColors.white),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -128,6 +142,20 @@ class _RegisterPageState extends State<RegisterPage> {
                               r'[!@#\$%^&*(),.?":{}|<>]',
                             ).hasMatch(value)) {
                               return 'A senha deve conter pelo menos 1 caractere especial';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        PasswordField(
+                          label: 'Confirmar Senha',
+                          controller: _confirmPasswordController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Confirme sua senha';
+                            }
+                            if (value != _passwordController.text) {
+                              return 'As senhas não coincidem';
                             }
                             return null;
                           },
@@ -167,23 +195,54 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: SecondButton(
                       text: "Registrar",
                       onPressed: () async {
-                        String name = _emailController.text;
-                        String email = _emailController.text;
-                        String password = _passwordController.text;
-                        if (_formKey.currentState!.validate()) {
-                          if (isChecked) {
-                            print("Entrada Válidada:");
-                            print("Nome: ${_nameController.text}");
-                            print("Email: ${_emailController.text}");
-                            print("Senha: ${_passwordController.text}");
-                            _autenservi.registerUser(
-                              name: name,
-                              password: password,
-                              email: email,
-                            );
-                          } else {
-                            print("Form inválido.");
-                          }
+                        if (!_formKey.currentState!.validate()) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Formulário inválido. Corrija os erros e tente novamente.',
+                              ),
+                            ),
+                          );
+                          return;
+                        }
+                        if (!isChecked) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Você precisa aceitar a Política de Privacidade',
+                              ),
+                            ),
+                          );
+                          return;
+                        }
+                        final name = _nameController.text;
+                        final email = _emailController.text;
+                        final password = _passwordController.text;
+                        final navigator = Navigator.of(context);
+                        final messenger = ScaffoldMessenger.of(context);
+
+                        final success = await _autenservi.registerUser(
+                          name: name,
+                          email: email,
+                          password: password,
+                        );
+
+                        if (!mounted) return;
+
+                        if (success) {
+                          navigator.pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const LoginPage(),
+                            ),
+                          );
+                        } else {
+                          messenger.showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Erro ao registrar. Tente novamente.',
+                              ),
+                            ),
+                          );
                         }
                       },
                     ),

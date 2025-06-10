@@ -5,9 +5,10 @@ import 'package:receitanamao/common/constants/app_text_styles.dart';
 import 'package:receitanamao/common/constants/widgets/custom_border.dart';
 import 'package:receitanamao/common/constants/widgets/password_field.dart';
 import 'package:receitanamao/common/constants/widgets/second_button.dart';
+import 'package:receitanamao/features/Login/forgot_password_page.dart';
 import 'package:receitanamao/features/pages/first_page.dart';
-import 'package:receitanamao/features/splash/splash_page.dart';
-import 'register_page.dart';
+import 'package:receitanamao/features/Login/register_page.dart';
+import 'package:receitanamao/features/servicos/authentication_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,6 +19,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  final AuthenticationService _authService = AuthenticationService();
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +45,10 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset("assets/Image/login_page_chef.png",
-                height: 320,
-                width: 320,
+                Image.asset(
+                  "assets/Image/login_page_chef.png",
+                  height: 320,
+                  width: 320,
                 ),
                 Text(
                   'Login',
@@ -58,6 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextFormField(
+                        controller: _emailController,
                         decoration: CustomBorder.build('Email'),
                         keyboardType: TextInputType.emailAddress,
                         style: TextStyle(color: AppColors.white),
@@ -65,9 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                           if (value == null || value.isEmpty) {
                             return 'Digite seu email';
                           }
-                          if (!RegExp(
-                            r'^[^@]+@[^@]+\.[^@]+',
-                          ).hasMatch(value)) {
+                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
                             return 'Email inválido';
                           }
                           return null;
@@ -75,6 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 20),
                       PasswordField(
+                        controller: _passwordController,
                         label: 'Senha',
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -100,8 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder:
-                                                (context) => SplashPage(),
+                                            builder: (context) => ForgotPasswordPage(),
                                           ),
                                         );
                                       },
@@ -113,14 +119,32 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 30),
                       SecondButton(
                         text: 'Entrar',
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const FirstPage(),
-                              ),
-                            );
+                            final navigator = Navigator.of(context);
+                            final messenger = ScaffoldMessenger.of(context);
+
+                            final String? errorMessage = await _authService
+                                .logUser(
+                                  email: _emailController.text.trim(),
+                                  password: _passwordController.text.trim(),
+                                );
+
+                            if (!mounted) return;
+
+                            if (errorMessage == null) {
+                              // Login bem-sucedido
+                              navigator.pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) => const FirstPage(),
+                                ),
+                              );
+                            } else {
+                              // Erro no login
+                              messenger.showSnackBar(
+                                SnackBar(content: Text(errorMessage)),
+                              );
+                            }
                           }
                         },
                       ),
