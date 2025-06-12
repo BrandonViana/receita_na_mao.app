@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../api/api_service.dart';
+import 'recipe_detail_page.dart';
 
 class IngredientsPage extends StatefulWidget {
   const IngredientsPage({super.key});
@@ -23,7 +24,6 @@ class _IngredientsPageState extends State<IngredientsPage> {
     try {
       final resultado = await ApiService.buscarTodasReceitas();
       if (!mounted) return;
-
       setState(() {
         receitas = resultado;
       });
@@ -46,6 +46,27 @@ class _IngredientsPageState extends State<IngredientsPage> {
         backgroundColor: Colors.orange,
         foregroundColor: Colors.white,
       ),
+      body:
+          carregando
+              ? const Center(child: CircularProgressIndicator())
+              : ListView.builder(
+                itemCount: receitas.length,
+                itemBuilder: (context, index) {
+                  final receita = receitas[index];
+                  return ListTile(
+                    title: Text(receita['receita'] ?? 'Sem nome'),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => RecipeDetailPage(receita: receita),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
     );
   }
 }
